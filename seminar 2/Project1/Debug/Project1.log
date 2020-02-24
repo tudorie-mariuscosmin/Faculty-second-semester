@@ -1,0 +1,9 @@
+﻿  Source.cpp
+d:\facultate\anu 2 sem 2\sdd\project1\project1\source.cpp(5): warning C4326: return type of 'main' should be 'int' instead of 'void'
+d:\facultate\anu 2 sem 2\sdd\project1\project1\source.cpp(7): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: see declaration of 'fopen'
+d:\facultate\anu 2 sem 2\sdd\project1\project1\source.cpp(11): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1197): note: see declaration of 'fscanf'
+d:\facultate\anu 2 sem 2\sdd\project1\project1\source.cpp(23): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1197): note: see declaration of 'fscanf'
+  Project1.vcxproj -> D:\Facultate\anu 2 sem 2\SDD\Project1\Debug\Project1.exe
