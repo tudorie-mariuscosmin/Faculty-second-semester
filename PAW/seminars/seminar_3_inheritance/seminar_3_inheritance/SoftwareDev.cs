@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace seminar_3_inheritance
 {
-    class SoftwareDev : Employee
+    class SoftwareDev : Employee, IDeveloper
     {
-        public SoftwareDev(string name) : base(name)
+        public string[] Languages { get; set; }
+
+        public SoftwareDev(string name, string [] languages) : base(name)
         {
+            Languages = languages;
         }
 
         public override void abstractMethod()
@@ -28,6 +31,9 @@ namespace seminar_3_inheritance
             Console.WriteLine("softwaredev method");   
         }
 
-
+        public bool knows(string language)
+        {
+            return Languages.Contains(language);
+        }
     }
 }

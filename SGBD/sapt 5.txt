@@ -1,0 +1,26 @@
+set SERVEROUTPUT on
+declare
+  a number:=10;
+  x number;
+begin
+--	expresii CASE (CASE Expressions) care intorc un rezultat intr-o variabila. Se termina cu END
+  x:= case when a<10 then 500 when a=10 then 1000 else 2000 end;
+  /*select case when a<10 then 500 when a=10 then 1000 else 2000 end into x from dual;*/
+  dbms_output.put_line('X='||x);
+-- sintaxa CASE (CASE Statement) care executa o anumita instructiune. Se termina cu END CASE, iar fiecare rand se termina cu ;  
+ 
+  case 
+  when a<10 then 
+    x:=500;
+  when a=10 then
+   x:=1000;
+   x:=x*2;
+  else 
+   x:=2000;
+  end case;
+  dbms_output.put_line('X='||x);
+  
+end;
+/
+
+
