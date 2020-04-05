@@ -1,0 +1,68 @@
+set SERVEROUTPUT on
+-- Display only the dep that have employees
+declare
+cursor d is select * from departments order by 1;
+cursor e(p_department_id number) is select * from employees where department_id=p_department_id;
+t e%rowtype;
+begin
+ for r in d loop 
+  open e(r.department_id);
+  fetch e into t;
+  if e%found then
+       close e;
+       dbms_output.put_line('Department '||r.department_id||'-'||r.department_name);
+      -- we don't know yet it "e" will find or not employees
+       for s in e(r.department_id) loop
+        dbms_output.put_line('  '||s.first_name||' '||s.last_name);
+       end loop;     
+   else
+    close e;
+   end if;  
+  end loop;  
+end;
+/
+
+select * from(
+select department_id,count(*) no_emp from employees group by department_id order by count(*) desc)
+where rownum=1;
+
+select department_id,count(*) no_emp from employees group by department_id order by count(*) desc offset 2 row 
+          fetch first 3 rows only;
+
+
+set SERVEROUTPUT on
+declare
+ cursor d is select department_id,count(*) no_emp from employees group by department_id order by count(*) desc;
+ s d%rowtype;
+ cursor e(p_department_id number) is select * from employees where department_id=p_department_id;
+begin
+ open d;
+ fetch d into s;
+ close d;
+ dbms_output.put_line('Dep '||s.department_id||' has '||s.no_emp||' employees');
+ for r in e(s.department_id) loop
+   dbms_output.put_line('  '||r.first_name||' '||r.last_name);
+ end loop;
+end;
+/
+set SERVEROUTPUT on
+declare
+ cursor d is select department_id,count(*) no_emp from employees group by department_id order by count(*) desc;
+ s d%rowtype;
+ cursor e(p_department_id number) is select * from employees 
+       where department_id=p_department_id order by salary desc for update;
+begin
+ open d;
+ fetch d into s;
+ close d;
+ dbms_output.put_line('Dep '||s.department_id||' has '||s.no_emp||' employees');
+ for r in e(s.department_id) loop
+   update employees set salary=salary*1.1 where current of e;
+   dbms_output.put_line('  '||r.first_name||' '||r.last_name||' has a salary of '||r.salary*1.1);
+   -- displays the salaries before or after the raise?
+   -- before!
+ end loop;
+end;
+/
+select * from employees  where department_id=50 order by salary desc
+

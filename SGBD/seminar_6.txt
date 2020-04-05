@@ -1,0 +1,58 @@
+-- display the first, last names, salaries for the employees from dep 50
+--top 5
+-- FOR + INLINE cursor
+set SERVEROUTPUT on
+declare
+ i pls_integer:=0;
+begin   
+   for r in (select first_name,last_name,salary from employees where department_id=50 order by salary desc) loop
+       i:=i+1; 
+       exit when i>5;
+      dbms_output.put_line(i||'->'||r.first_name||' '||r.last_name||', '||r.salary);        
+   end loop;    
+      i:=i-1;
+      dbms_output.put_line('There were '||i||' employees displayed');
+    
+end;
+/
+ 
+
+
+-- Display the first 10 products (product_name) according to the total ordered value
+-- ALSO DISPLAY THE NUMER OF ORDERS
+SET SERVEROUTPUT ON
+DECLARE
+CURSOR C IS SELECT P.PRODUCT_ID,PRODUCT_NAME,SUM(DISCOUNT_PRICE*QUANTITY) ORDER_VALUE,COUNT(*) NO_ORDERS
+FROM PRODUCT_INFORMATION P JOIN ORDER_ITEMS O ON 
+  p.product_id=O.PRODUCT_ID
+  GROUP BY P.PRODUCT_ID,PRODUCT_NAME
+  ORDER BY ORDER_VALUE DESC;
+BEGIN
+ FOR R IN C LOOP
+  EXIT WHEN C%ROWCOUNT>10;
+  DBMS_OUTPUT.PUT_LINE(C%ROWCOUNT||'->'||R.PRODUCT_ID||' '||R.PRODUCT_NAME||' VALUE: '||R.ORDER_VALUE||
+    ', NO OF ORDERS:'||R.NO_ORDERS);
+ END LOOP;
+END;
+/
+SELECT * FROM ORDER_ITEMS WHERE product_id=3127;
+
+
+
+-- Display the first 10 ORDERS ACCORDING TO THEIR VALUE
+-- ORDER_ID, ORDER_DATE, VALUE
+SET SERVEROUTPUT ON
+DECLARE
+CURSOR C IS SELECT O.ORDER_ID,O.ORDER_DATE,SUM(DISCOUNT_PRICE*QUANTITY) ORDER_VALUE,COUNT(*) NO_OF_PROD
+   FROM ORDERS O, ORDER_ITEMS I WHERE O.ORDER_ID=I.ORDER_ID
+   GROUP BY O.ORDER_ID,O.ORDER_DATE
+   ORDER BY ORDER_VALUE DESC;
+BEGIN
+ FOR R IN C LOOP
+  EXIT WHEN C%ROWCOUNT>10;
+  DBMS_OUTPUT.PUT_LINE(C%ROWCOUNT||'->'||R.ORDER_ID||', ORDER DATE='||TO_CHAR(R.ORDER_DATE,'DD.MM.YYYY')||', VALUE: '||R.ORDER_VALUE||
+    ', NO OF PRODUCTS:'||R.NO_OF_PROD);
+ END LOOP;
+END;
+/
+SELECT * FROM ORDER_ITEMS WHERE product_id=3127;
