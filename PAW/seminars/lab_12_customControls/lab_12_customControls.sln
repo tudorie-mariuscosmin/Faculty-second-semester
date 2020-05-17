@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab_12_customControls", "lab_12_customControls\lab_12_customControls.csproj", "{795CCC1C-3CD3-477E-84DE-00D08440603A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibrary", "ControlLibrary\ControlLibrary.csproj", "{69863307-ABA9-4FFB-B277-9CD9FD7FAC7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{795CCC1C-3CD3-477E-84DE-00D08440603A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{795CCC1C-3CD3-477E-84DE-00D08440603A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{795CCC1C-3CD3-477E-84DE-00D08440603A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{795CCC1C-3CD3-477E-84DE-00D08440603A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69863307-ABA9-4FFB-B277-9CD9FD7FAC7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69863307-ABA9-4FFB-B277-9CD9FD7FAC7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69863307-ABA9-4FFB-B277-9CD9FD7FAC7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69863307-ABA9-4FFB-B277-9CD9FD7FAC7E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {603C9437-0AC2-48E8-B11C-6F31BEE9D666}
+	EndGlobalSection
+EndGlobal

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace seminar_3_inheritance
 {
-    class Person
+   abstract class Person
     {
         public string Name { get; set; }
 

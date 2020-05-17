@@ -21,8 +21,8 @@ namespace seminar_3_inheritance
                 {
                     Employee e = (Employee)p;
                     //e.abstractMethod();
-                    // e.VirtualMethod();
-                    e.NormalMethod();
+                     e.VirtualMethod();
+                   // e.NormalMethod();
                 }
             }
 

@@ -16,5 +16,6 @@ namespace seminar_3_inheritance
         {
             Console.WriteLine("manager - abstract method");
         }
+
     }
 }

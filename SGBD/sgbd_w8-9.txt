@@ -1,0 +1,82 @@
+create or replace function check_cnp(v_cnp char) return varchar2 is
+-- v_cnp char(13):=    '1930731145832';
+ v_weights char(12):='279146358279'; -- are always the same
+ v_sum number:=0;
+ v_remainer number;
+begin
+ for i in 1..12 loop
+  v_sum:=v_sum+substr(v_weights,i,1)*substr(v_cnp,i,1);
+ end loop;
+ dbms_output.put_line('The sum is '||v_sum);
+ v_remainer:=v_sum mod 11;
+ dbms_output.put_line('The remainer is '||v_remainer);
+ --  Dacă restul este 10, atunci cifra de control este 1, altfel cifra de control este egală cu restul.
+ if v_remainer=substr(v_cnp,13,1) or (v_remainer=10 and substr(v_cnp,13,1)=1) then
+   dbms_output.put_line('The CNP is valid!');
+ else
+  dbms_output.put_line('The CNP is not valid!');
+ end if; 
+end;
+/
+create or replace function check_cnp(v_cnp char) return varchar2 is
+-- v_cnp char(13):=    '1930731145832';
+ v_weights char(12):='279146358279'; -- are always the same
+ v_sum number:=0;
+ v_remainer number;
+begin
+ for i in 1..12 loop
+  v_sum:=v_sum+substr(v_weights,i,1)*substr(v_cnp,i,1);
+ end loop;
+ dbms_output.put_line('The sum is '||v_sum);
+ v_remainer:=v_sum mod 11;
+ dbms_output.put_line('The remainer is '||v_remainer);
+ --  Dacă restul este 10, atunci cifra de control este 1, altfel cifra de control este egală cu restul.
+ if v_remainer=substr(v_cnp,13,1) or (v_remainer=10 and substr(v_cnp,13,1)=1) then
+   return 'The CNP is valid!';
+ else
+  return 'The CNP is not valid!';
+ end if; 
+end;
+/
+
+set SERVEROUTPUT on
+
+begin
+ dbms_output.put_line(check_cnp('5000719210621'));
+end;
+/
+
+
+create or replace function check_cnp(v_cnp char) return varchar2 is
+-- v_cnp char(13):=    '1930731145832';
+ v_weights char(12):='279146358279'; -- are always the same
+ v_sum number:=0;
+ v_remainer number;
+begin
+ if length(v_cnp)<>13 then
+   return 'The CNP is not valid!';
+ end if;  
+ for i in 1..12 loop
+  v_sum:=v_sum+substr(v_weights,i,1)*substr(v_cnp,i,1);
+ end loop;
+ dbms_output.put_line('The sum is '||v_sum);
+ v_remainer:=v_sum mod 11;
+ dbms_output.put_line('The remainer is '||v_remainer);
+ --  Dacă restul este 10, atunci cifra de control este 1, altfel cifra de control este egală cu restul.
+ if v_remainer=substr(v_cnp,13,1) or (v_remainer=10 and substr(v_cnp,13,1)=1) then
+   return 'The CNP is valid!';
+ else
+  return 'The CNP is not valid!';
+ end if; 
+ exception when VALUE_ERROR then
+   return 'The CNP is not valid';
+end;
+/
+alter table customers add cnp char(13);
+
+update customers set cnp='5000719270621' where customer_id=211;
+update customers set cnp='1920912226960' where customer_id=212;
+update customers set cnp='6010527319187' where customer_id=213;
+update customers set cnp='1961016195756' where customer_id=214;
+update customers set cnp='2910721129215' where customer_id=215;
+update customers set cnp='5010821345918' where customer_id=216;

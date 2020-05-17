@@ -1,0 +1,33 @@
+16:42:43	 From  1065 Sarivan William-Christopher-Luchian : if we can reuse some parts from the project from last semester ? 
+16:43:16	 From  1065 Sarivan William-Christopher-Luchian : okay
+16:43:31	 From  1065 Sarivan William-Christopher-Luchian : just wanted to know if we need to create other tables 
+16:43:32	 From  1065 Sarivan William-Christopher-Luchian : thank you 
+16:44:04	 From  Eros-Răzvan Teodorescu : it matters if we work on the cloud or not?
+16:45:45	 From  1065 Railescu Perla-Andreea : is there any update for those who don't have an oracle account?
+16:46:21	 From  1065 Railescu Perla-Andreea : or we will just use the apex cloud?
+16:47:06	 From  1065 Railescu Perla-Andreea : ok, multumesc frumos
+16:52:44	 From  Vlad Diaconita : set serveroutput ondeclare  no_emp exception;  pragma exception_init(no_emp,-20101);BEGIN   UPDATE employees SET salary = salary + 100 WHERE employee_id = 1100;      if SQL%NOTFOUND then      --raise_application_error(-20101, 'The employee does not exist');     raise no_data_found;     -- user raised exception     -- -20999...-20000   end if;   exception when no_emp or no_data_found then     dbms_output.put_line('No salaries were updated');     dbms_output.put_line(SQLERRM);     dbms_output.put_line(SQLCODE);END;/
+17:00:40	 From  Vlad Diaconita : CREATE or REPLACE procedure increase_categ_list_price(p_category_id number) is  n number;begin  update product_information set list_price=list_price*1.1 where category_id=p_category_id;end;/
+17:11:30	 From  1065 Sarivan William-Christopher-Luchian : a counter
+17:11:56	 From  1065 Sarivan William-Christopher-Luchian : with sql found ? 
+17:16:07	 From  Vlad Diaconita : CREATE or REPLACE procedure increase_categ_list_price(p_category_id number, p_no OUT number,                                                        p_percent number default 10) is  n number;begin  update product_information    set list_price=list_price*(100+p_percent)/100   where category_id=p_category_id;   p_no:=SQL%ROWCOUNT; end;/
+17:16:12	 From  Vlad Diaconita : set SERVEROUTPUT ondeclare  n number;begin   increase_categ_list_price(1500,n,5);  SYS.dbms_output.put_line('Number of prices updated: '||n);end;/
+17:19:19	 From  1065 Sarivan William-Christopher-Luchian : order_items 
+17:19:33	 From  1065 Sarivan William-Christopher-Luchian : orders 
+17:19:34	 From  1065 Sarivan William-Christopher-Luchian : ?
+17:19:46	 From  1065 Sarivan William-Christopher-Luchian : product_informatopn
+17:19:48	 From  1065 Vasile Diana-Monica : product_information
+17:21:14	 From  1065 Sarivan William-Christopher-Luchian : unit_price ?
+17:21:35	 From  1065 Sarivan William-Christopher-Luchian : unit_price* quantyty
+17:21:36	 From  1065 Vasile Diana-Monica : quantity 
+17:24:38	 From  Vlad Diaconita : create or replace function get_categ_values(p_category_id number) return number isv_val number;beginselect sum(discount_price*quantity) into v_val from product_information p join order_items o  on p.product_id=o.product_id  where p.category_id=p_category_id;return v_val;end;/ 
+17:31:37	 From  Vlad Diaconita : create or replace function get_categ_values(p_category_id number) return number isv_val number;beginselect sum(discount_price*quantity) into v_val from product_information p join order_items o  on p.product_id=o.product_id  where p.category_id=p_category_id;  return nvl(v_val,0);end;/
+17:31:42	 From  Vlad Diaconita : begin  if get_categ_values(156) > 0 then    dbms_output.put_line('The value is '||get_categ_values(156)); end if;end;/
+17:36:08	 From  Vlad Diaconita : select product_id,product_name,category_id,get_categ_values(category_id) p_value from product_informationwhere get_categ_values(category_id)>147463order by get_categ_values(category_id) desc;
+17:44:10	 From  Vlad Diaconita : declare tables_exists exception; pragma exception_init(tables_exists,-00955);begin EXECUTE immediate 'create table numbers(no number)'; -- dynamic sql EXECUTE immediate 'insert into numbers values(1)'; EXECUTE immediate 'insert into numbers values(100)'; commit; exception  when tables_exists then   EXECUTE immediate 'drop table numbers';end;/select * from user_tables;select * from numbers;
+17:45:10	 From  Eros-Răzvan Teodorescu : am o intrebare
+17:45:39	 From  1065 Paun Alexandru-Marian : Same
+17:45:41	 From  1065 Vasile Diana-Monica : same
+17:45:43	 From  1065 Turcu Ioan-Alexandru : yes, I have the same problem as mihnea
+17:45:50	 From  1065 Paun Alexandru-Marian : password
+17:45:54	 From  1065 Turcu Ioan-Alexandru : the password for me also 
