@@ -1,0 +1,73 @@
+create or replace package emp_crud_1065 is
+procedure insert_update_employee(
+    P_EMPLOYEE_ID number,
+    P_FIRST_NAME varchar2,
+    P_LAST_NAME varchar2,
+    P_EMAIL varchar2,
+    P_PHONE_NUMBER varchar2,
+    P_HIRE_DATE date,
+    P_JOB_ID varchar2,
+    P_SALARY number,
+    P_COMMISSION_PCT number,
+    P_MANAGER_ID number,
+    P_DEPARTMENT_ID number
+
+);
+
+procedure delete_employee(P_EMPLOYEE_ID number);
+
+end;
+/
+create or replace package body emp_crud_1065 is
+procedure insert_update_employee(
+    P_EMPLOYEE_ID number,
+    P_FIRST_NAME varchar2,
+    P_LAST_NAME varchar2,
+    P_EMAIL varchar2,
+    P_PHONE_NUMBER varchar2,
+    P_HIRE_DATE date,
+    P_JOB_ID varchar2,
+    P_SALARY number,
+    P_COMMISSION_PCT number,
+    P_MANAGER_ID number,
+    P_DEPARTMENT_ID number
+    ) is
+    v_min_sal number;
+    v_max_sal number;
+    begin
+    select min_salary,max_salary into v_min_sal,v_max_sal from jobs where job_id=P_JOB_ID;
+    if not P_SALARY between v_min_sal and v_max_sal then
+      raise_application_error(-20001,'The salary '||P_SALARY||' is not between '||v_min_sal||' and '||v_max_sal);
+    end if;
+    IF P_EMPLOYEE_ID IS NULL THEN
+    INSERT INTO EMPLOYEES(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+       VALUES (/*(SELECT NVL(MAX(EMPLOYEE_ID)+1,100) FROM EMPLOYEES)*/EMPLOYEES_1065_ID_S.NEXTVAL,P_FIRST_NAME,P_LAST_NAME,P_EMAIL,P_PHONE_NUMBER,P_HIRE_DATE,P_JOB_ID,
+       P_SALARY,P_COMMISSION_PCT,P_MANAGER_ID,P_DEPARTMENT_ID);
+    ELSE
+      update EMPLOYEES set
+        FIRST_NAME=P_FIRST_NAME,
+        LAST_NAME=P_LAST_NAME,
+        EMAIL=P_EMAIL,
+        PHONE_NUMBER=P_PHONE_NUMBER,
+        HIRE_DATE=P_HIRE_DATE,
+        JOB_ID =P_JOB_ID,
+        SALARY=P_SALARY,
+        COMMISSION_PCT=P_COMMISSION_PCT,
+        MANAGER_ID =P_MANAGER_ID,
+        DEPARTMENT_ID =P_DEPARTMENT_ID 
+    WHERE EMPLOYEE_ID=P_EMPLOYEE_ID;
+      END IF; 
+      exception when no_data_found then
+       raise_application_error(-20002,'This job doesn''t exist: '||P_JOB_ID);
+   
+    end insert_update_employee;
+
+procedure delete_employee(P_EMPLOYEE_ID number) is
+  begin
+    delete from employees where employee_id=P_EMPLOYEE_ID;
+    exception when others then
+       raise_application_error(-20001,'I can''t delete this employee');
+  end delete_employee;  
+    
+end emp_crud_1065;
+CREATE SEQUENCE EMPLOYEES_1065_ID_S START WITH 208;
