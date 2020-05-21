@@ -21,7 +21,7 @@ namespace Project_SupplyBusiness.Classes
     [Serializable]
    public class Good
     {
-
+        public long Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
         public GoodCategory Category { get; set; }
@@ -53,6 +53,11 @@ namespace Project_SupplyBusiness.Classes
             {
                 tax = 0;
             }
+        }
+        public Good( long id, string name, double price, GoodCategory category, string description, bool taxable)
+            :this(name, price, category, description, taxable)
+        {
+            Id = id;
         }
 
         public override string ToString()

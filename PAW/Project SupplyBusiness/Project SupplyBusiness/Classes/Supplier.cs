@@ -9,6 +9,7 @@ namespace Project_SupplyBusiness.Classes
     [Serializable]
    public class Supplier
     {
+        public long Id { get; set; }
         public string SupplierName { get; set; }
         
         public List<Good> Goods { get; set; }
@@ -28,6 +29,11 @@ namespace Project_SupplyBusiness.Classes
             HeadquartersAdress = headquartersAdress;
             RepresantativeEmploye = represantativeEmploye;
             PhoneNumber = phoneNumber;
+        }
+        public Supplier(long id,string supplierName, int inregistrationNumber, string bankAccount, string headquartersAdress, string represantativeEmploye, string phoneNumber)
+            :this(supplierName, inregistrationNumber, bankAccount, headquartersAdress, represantativeEmploye, phoneNumber)
+        {
+            Id = id;
         }
 
 

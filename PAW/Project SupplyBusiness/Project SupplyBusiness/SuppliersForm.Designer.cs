@@ -50,6 +50,7 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnAddGood = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -58,7 +59,11 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.suppliersCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.addGoodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -231,6 +236,7 @@
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
+            this.lvSuppliers.ContextMenuStrip = this.contextMenuStrip1;
             this.lvSuppliers.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvSuppliers.FullRowSelect = true;
             this.lvSuppliers.GridLines = true;
@@ -271,6 +277,16 @@
             // 
             this.columnHeader6.Text = "Phone Number";
             this.columnHeader6.Width = 115;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addGoodToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(152, 82);
             // 
             // errorProvider
             // 
@@ -350,6 +366,30 @@
             this.suppliersCount.Size = new System.Drawing.Size(17, 20);
             this.suppliersCount.Text = "0";
             // 
+            // addGoodToolStripMenuItem
+            // 
+            this.addGoodToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.add_1_icon;
+            this.addGoodToolStripMenuItem.Name = "addGoodToolStripMenuItem";
+            this.addGoodToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
+            this.addGoodToolStripMenuItem.Text = "Add Good";
+            this.addGoodToolStripMenuItem.Click += new System.EventHandler(this.addGoodToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.edit_icon;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.Editing_Delete_icon;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
             // SuppliersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -365,6 +405,7 @@
             this.Load += new System.EventHandler(this.SuppliersForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
@@ -405,5 +446,9 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel suppliersCount;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem addGoodToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Project_SupplyBusiness
 {
     public partial class SuppliersForm : Form
     {
-
+        private string connectionString = "Data source=database.db";
        public List<Supplier> Suppliers { get; private set; }
 
         public SuppliersForm( List<Supplier> suppliers)
@@ -122,12 +123,12 @@ namespace Project_SupplyBusiness
             }
         }
         #endregion
-
+        #region methods
         private void DisplaySuppliers()
         {
             lvSuppliers.Items.Clear();
             suppliersCount.Text = Suppliers.Count.ToString();
-            foreach(var supplier in Suppliers)
+            foreach (var supplier in Suppliers)
             {
                 var lvItem = new ListViewItem(supplier.SupplierName);
                 lvItem.SubItems.Add(supplier.InregistrationNumber.ToString());
@@ -139,6 +140,35 @@ namespace Project_SupplyBusiness
                 lvSuppliers.Items.Add(lvItem);
             }
         }
+
+        private void AddSupplier(Supplier supplier)
+        {
+            string sql = "INSERT INTO supplier (s_name, s_inregistration, s_bank, headquaters, s_phone, employee) " +
+                " VALUES(@s_name, @s_inregistration, @s_bank, @headquaters, @s_phone, @employee); " +
+                "SELECT last_insert_rowid();";
+
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                var command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@s_name", supplier.SupplierName);
+                command.Parameters.AddWithValue("@s_inregistration", supplier.InregistrationNumber);
+                command.Parameters.AddWithValue("@s_bank", supplier.BankAccount);
+                command.Parameters.AddWithValue("@headquaters", supplier.HeadquartersAdress);
+                command.Parameters.AddWithValue("@s_phone", supplier.PhoneNumber);
+                command.Parameters.AddWithValue("@employee", supplier.RepresantativeEmploye);
+
+                connection.Open();
+                long id = (long)command.ExecuteScalar();
+                supplier.Id = id;
+                Suppliers.Add(supplier);
+            }
+        }
+
+        
+        #endregion
+        #region events
+
         private void btnAddSupplier_Click(object sender, EventArgs e)
         {
             if (!ValidateChildren())
@@ -159,7 +189,7 @@ namespace Project_SupplyBusiness
             string phone = tbPhone.Text;
 
             Supplier supplier = new Supplier(name, inregistration, bank, headquaters, employee, phone);
-            Suppliers.Add(supplier);
+            AddSupplier(supplier);
             MessageBox.Show("New supplier added succesfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             DisplaySuppliers();
@@ -182,6 +212,7 @@ namespace Project_SupplyBusiness
 
         private void SuppliersForm_Load(object sender, EventArgs e)
         {
+            
             DisplaySuppliers();
         }
 
@@ -214,6 +245,40 @@ namespace Project_SupplyBusiness
             {
                 Suppliers.Remove((Supplier)lvSuppliers.SelectedItems[0].Tag);
                 DisplaySuppliers();
+            }
+            
+
+        }
+
+        private void addGoodToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvSuppliers.SelectedItems.Count > 0)
+            {
+                GoodForm goodForm = new GoodForm((Supplier)lvSuppliers.SelectedItems[0].Tag);
+                goodForm.ShowDialog();
+            }
+        }
+
+
+        #endregion
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvSuppliers.SelectedItems.Count > 0)
+            {
+                EditSupplierForm form = new EditSupplierForm((Supplier)lvSuppliers.SelectedItems[0].Tag);
+                if (form.ShowDialog() == DialogResult.OK)
+                    DisplaySuppliers();
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvSuppliers.SelectedItems.Count > 0)
+            {
+                Suppliers.Remove((Supplier)lvSuppliers.SelectedItems[0].Tag);
+                DisplaySuppliers();
+
             }
             
 

@@ -9,10 +9,8 @@ namespace Project_SupplyBusiness.Classes
     [Serializable]
   public  class Contract
     {
-        static int noObjects = 0;
-
-
-        public int ContractNo { get; set; }
+      
+        public long ContractNo { get; set; }
         public string ClientName { get; set; }
         public string ClientPhoneNumber { get; set; }
         public string ClientBank { get; set; }
@@ -28,8 +26,6 @@ namespace Project_SupplyBusiness.Classes
         public Contract() { }
         public Contract(string clientName, string clientPhoneNumber, string clientBank, Supplier supplier, int goodIndex, int noGoods)
         {
-            ContractNo = noObjects;
-            noObjects++;
             ClientName = clientName;
             ClientPhoneNumber = clientPhoneNumber;
             ClientBank = clientBank;
@@ -44,6 +40,21 @@ namespace Project_SupplyBusiness.Classes
             totalPrice = totalGoods + totalTax;
 
             Date = DateTime.Now;
+        }
+
+        public Contract(long contractNo, string clientName, string clientPhoneNumber, string clientBank, Supplier supplier, int noGoods, Good orderedGood, DateTime date)
+        {
+            ContractNo = contractNo;
+            ClientName = clientName;
+            ClientPhoneNumber = clientPhoneNumber;
+            ClientBank = clientBank;
+            Supplier = supplier;
+            NoGoods = noGoods;
+            this.orderedGood = orderedGood;
+            Date = date;
+            totalGoods = orderedGood.Price * NoGoods;
+            totalTax = orderedGood.Tax * NoGoods;
+            totalPrice = totalGoods + totalTax;
         }
     }
 }

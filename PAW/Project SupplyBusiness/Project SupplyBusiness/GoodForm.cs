@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,10 @@ namespace Project_SupplyBusiness
 {
     public partial class GoodForm : Form
     {
-      public  Supplier Supplier { get; set; }
+        public Supplier Supplier { get; set; }
+        private string connectionString = "Data Source=database.db";
+
+    
 
 
         public GoodForm(Supplier supplier)
@@ -21,6 +25,29 @@ namespace Project_SupplyBusiness
             Supplier = supplier;
             InitializeComponent();
             
+        }
+
+        private void addGood(Good good)
+        {
+            string sql = "INSERT INTO good (g_name, g_price, g_description, taxable, supplier_id, category) VALUES(@name, @price, @description, @taxable, @supplier_id, @category); SELECT last_insert_rowid();";
+            SQLiteConnection connection = new SQLiteConnection(connectionString);
+            using(SQLiteCommand command = new SQLiteCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@name", good.Name);
+                command.Parameters.AddWithValue("@price", good.Price);
+                command.Parameters.AddWithValue("@description", good.Description);
+                command.Parameters.AddWithValue("@taxable", good.Taxable.ToString());
+                command.Parameters.AddWithValue("@supplier_id", Supplier.Id);
+                command.Parameters.AddWithValue("@category", good.Category);
+
+
+                connection.Open();
+                long id =(long) command.ExecuteScalar();
+                good.Id = id;
+                Supplier.AddGood(good);
+            }
+
+
         }
 
         private void BtnAddGood_Click(object sender, EventArgs e)
@@ -58,7 +85,7 @@ namespace Project_SupplyBusiness
 
             Good good = new Good(name, price, category, description, checkBoxTaxable.Checked);
 
-            Supplier.AddGood(good);
+            addGood(good);
 
             MessageBox.Show("Good added succesfully");
             
