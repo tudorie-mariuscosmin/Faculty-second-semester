@@ -1,9 +1,8 @@
 package ro.ase.acs.interfaces;
 
 public interface Taxable {
-	public static final int MIN_TAX = 5;
 	
+	public static final int MIN_TAX = 5;
 	public float computeTax(); 
-		
 	
 }

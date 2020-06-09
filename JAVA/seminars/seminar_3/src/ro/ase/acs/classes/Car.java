@@ -18,6 +18,25 @@ public class Car extends Vehicle implements Taxable {
 		this.color = color;
 		this.capacity = capacity;
 	}
+	
+	
+	
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
 
 	@Override
 	public float computeTax() {
@@ -32,5 +51,15 @@ public class Car extends Vehicle implements Taxable {
 		System.out.println("The car is moveing with "+ getSpeed() + " km/h!");
 		
 	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		Car copy = (Car) super.clone();
+		copy.color = color;
+		copy.capacity = capacity;
+		return copy;
+	}
+	
+	
 
 }

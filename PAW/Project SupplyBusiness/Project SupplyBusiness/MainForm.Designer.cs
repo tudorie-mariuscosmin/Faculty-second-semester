@@ -31,7 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.contractsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportCsvToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exporttxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serializeDeserializeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.binaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnBinarySerialization = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnBinaryDeserialization = new System.Windows.Forms.ToolStripMenuItem();
+            this.xMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnXMLSerialization = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnXMLDeserialization = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -55,14 +63,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.exportCsvToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exporttxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.binaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnBinarySerialization = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnBinaryDeserialization = new System.Windows.Forms.ToolStripMenuItem();
-            this.xMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnXMLSerialization = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnXMLDeserialization = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -95,6 +95,22 @@
             this.contractsToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.contractsToolStripMenuItem.Text = "Contracts";
             // 
+            // exportCsvToolStripMenuItem
+            // 
+            this.exportCsvToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.Files_Csv_icon;
+            this.exportCsvToolStripMenuItem.Name = "exportCsvToolStripMenuItem";
+            this.exportCsvToolStripMenuItem.Size = new System.Drawing.Size(154, 26);
+            this.exportCsvToolStripMenuItem.Text = "Export .csv";
+            this.exportCsvToolStripMenuItem.Click += new System.EventHandler(this.exportCsvToolStripMenuItem_Click);
+            // 
+            // exporttxtToolStripMenuItem
+            // 
+            this.exporttxtToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.Files_Txt_icon;
+            this.exporttxtToolStripMenuItem.Name = "exporttxtToolStripMenuItem";
+            this.exporttxtToolStripMenuItem.Size = new System.Drawing.Size(154, 26);
+            this.exporttxtToolStripMenuItem.Text = "Export .txt";
+            this.exporttxtToolStripMenuItem.Click += new System.EventHandler(this.exporttxtToolStripMenuItem_Click);
+            // 
             // serializeDeserializeToolStripMenuItem
             // 
             this.serializeDeserializeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -103,6 +119,58 @@
             this.serializeDeserializeToolStripMenuItem.Name = "serializeDeserializeToolStripMenuItem";
             this.serializeDeserializeToolStripMenuItem.Size = new System.Drawing.Size(156, 24);
             this.serializeDeserializeToolStripMenuItem.Text = "Serialize/Deserialize";
+            // 
+            // binaryToolStripMenuItem
+            // 
+            this.binaryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnBinarySerialization,
+            this.btnBinaryDeserialization});
+            this.binaryToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.binary_icon;
+            this.binaryToolStripMenuItem.Name = "binaryToolStripMenuItem";
+            this.binaryToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.binaryToolStripMenuItem.Text = "&Binary";
+            // 
+            // btnBinarySerialization
+            // 
+            this.btnBinarySerialization.Image = global::Project_SupplyBusiness.Properties.Resources.download_icon;
+            this.btnBinarySerialization.Name = "btnBinarySerialization";
+            this.btnBinarySerialization.Size = new System.Drawing.Size(157, 26);
+            this.btnBinarySerialization.Text = "Serialize";
+            this.btnBinarySerialization.Click += new System.EventHandler(this.btnBinarySerialization_Click);
+            // 
+            // btnBinaryDeserialization
+            // 
+            this.btnBinaryDeserialization.Image = global::Project_SupplyBusiness.Properties.Resources.upload_icon;
+            this.btnBinaryDeserialization.Name = "btnBinaryDeserialization";
+            this.btnBinaryDeserialization.Size = new System.Drawing.Size(157, 26);
+            this.btnBinaryDeserialization.Text = "Deserialize";
+            this.btnBinaryDeserialization.Click += new System.EventHandler(this.btnBinaryDeserialization_Click);
+            // 
+            // xMLToolStripMenuItem
+            // 
+            this.xMLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnXMLSerialization,
+            this.btnXMLDeserialization});
+            this.xMLToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.Files_Xml_icon;
+            this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
+            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.xMLToolStripMenuItem.Text = "&XML";
+            // 
+            // btnXMLSerialization
+            // 
+            this.btnXMLSerialization.Image = global::Project_SupplyBusiness.Properties.Resources.download_icon;
+            this.btnXMLSerialization.Name = "btnXMLSerialization";
+            this.btnXMLSerialization.Size = new System.Drawing.Size(157, 26);
+            this.btnXMLSerialization.Text = "Serialize";
+            this.btnXMLSerialization.Click += new System.EventHandler(this.btnXMLSerialization_Click);
+            // 
+            // btnXMLDeserialization
+            // 
+            this.btnXMLDeserialization.Image = global::Project_SupplyBusiness.Properties.Resources.upload_icon;
+            this.btnXMLDeserialization.Name = "btnXMLDeserialization";
+            this.btnXMLDeserialization.Size = new System.Drawing.Size(157, 26);
+            this.btnXMLDeserialization.Text = "Deserialize";
+            this.btnXMLDeserialization.Click += new System.EventHandler(this.btnXMLDeserialization_Click);
             // 
             // label1
             // 
@@ -349,74 +417,6 @@
             this.toolStripButton2.Size = new System.Drawing.Size(91, 24);
             this.toolStripButton2.Text = "Statistics";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // exportCsvToolStripMenuItem
-            // 
-            this.exportCsvToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.Files_Csv_icon;
-            this.exportCsvToolStripMenuItem.Name = "exportCsvToolStripMenuItem";
-            this.exportCsvToolStripMenuItem.Size = new System.Drawing.Size(154, 26);
-            this.exportCsvToolStripMenuItem.Text = "Export .csv";
-            this.exportCsvToolStripMenuItem.Click += new System.EventHandler(this.exportCsvToolStripMenuItem_Click);
-            // 
-            // exporttxtToolStripMenuItem
-            // 
-            this.exporttxtToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.Files_Txt_icon;
-            this.exporttxtToolStripMenuItem.Name = "exporttxtToolStripMenuItem";
-            this.exporttxtToolStripMenuItem.Size = new System.Drawing.Size(154, 26);
-            this.exporttxtToolStripMenuItem.Text = "Export .txt";
-            this.exporttxtToolStripMenuItem.Click += new System.EventHandler(this.exporttxtToolStripMenuItem_Click);
-            // 
-            // binaryToolStripMenuItem
-            // 
-            this.binaryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnBinarySerialization,
-            this.btnBinaryDeserialization});
-            this.binaryToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.binary_icon;
-            this.binaryToolStripMenuItem.Name = "binaryToolStripMenuItem";
-            this.binaryToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
-            this.binaryToolStripMenuItem.Text = "&Binary";
-            // 
-            // btnBinarySerialization
-            // 
-            this.btnBinarySerialization.Image = global::Project_SupplyBusiness.Properties.Resources.download_icon;
-            this.btnBinarySerialization.Name = "btnBinarySerialization";
-            this.btnBinarySerialization.Size = new System.Drawing.Size(157, 26);
-            this.btnBinarySerialization.Text = "Serialize";
-            this.btnBinarySerialization.Click += new System.EventHandler(this.btnBinarySerialization_Click);
-            // 
-            // btnBinaryDeserialization
-            // 
-            this.btnBinaryDeserialization.Image = global::Project_SupplyBusiness.Properties.Resources.upload_icon;
-            this.btnBinaryDeserialization.Name = "btnBinaryDeserialization";
-            this.btnBinaryDeserialization.Size = new System.Drawing.Size(157, 26);
-            this.btnBinaryDeserialization.Text = "Deserialize";
-            this.btnBinaryDeserialization.Click += new System.EventHandler(this.btnBinaryDeserialization_Click);
-            // 
-            // xMLToolStripMenuItem
-            // 
-            this.xMLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnXMLSerialization,
-            this.btnXMLDeserialization});
-            this.xMLToolStripMenuItem.Image = global::Project_SupplyBusiness.Properties.Resources.Files_Xml_icon;
-            this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
-            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
-            this.xMLToolStripMenuItem.Text = "&XML";
-            // 
-            // btnXMLSerialization
-            // 
-            this.btnXMLSerialization.Image = global::Project_SupplyBusiness.Properties.Resources.download_icon;
-            this.btnXMLSerialization.Name = "btnXMLSerialization";
-            this.btnXMLSerialization.Size = new System.Drawing.Size(157, 26);
-            this.btnXMLSerialization.Text = "Serialize";
-            this.btnXMLSerialization.Click += new System.EventHandler(this.btnXMLSerialization_Click);
-            // 
-            // btnXMLDeserialization
-            // 
-            this.btnXMLDeserialization.Image = global::Project_SupplyBusiness.Properties.Resources.upload_icon;
-            this.btnXMLDeserialization.Name = "btnXMLDeserialization";
-            this.btnXMLDeserialization.Size = new System.Drawing.Size(157, 26);
-            this.btnXMLDeserialization.Text = "Deserialize";
-            this.btnXMLDeserialization.Click += new System.EventHandler(this.btnXMLDeserialization_Click);
             // 
             // MainForm
             // 

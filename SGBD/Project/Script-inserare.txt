@@ -1,0 +1,112 @@
+INSERT INTO Regions (ID_region,name_region) VALUES(1,'Cote d Azur');
+INSERT INTO Regions (ID_region,name_region) VALUES(2,'Mojave Desert');
+INSERT INTO Regions (ID_region,name_region) VALUES(3,'Pearl River Delta');
+INSERT INTO Regions (ID_region,name_region) VALUES(4,'Caraibe');
+INSERT INTO Regions (ID_region,name_region) VALUES(5,'Persian Gulf');
+INSERT INTO Regions (ID_region,name_region) VALUES(6,'Siberia');
+INSERT INTO Regions (ID_region,name_region) VALUES(7,'Himalaya');
+INSERT INTO Regions (ID_region,name_region) VALUES(8,'Iberian Peninsula');
+INSERT INTO Regions (ID_region,name_region) VALUES(9,'Patagonia');
+INSERT INTO Regions (ID_region,name_region) VALUES(10,'Kalahari');
+
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (1,'France',1);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (2,'SUA',2);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (3,'Macau',3);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (4,'Hong Kong',3);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (5,'Bahamas',4);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (6,'Qatar',5);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (7,'EAU',5);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (8,'Kuwait',5);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (9,'Spain',8);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (10,'Argentina',9);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (11,'Namibia',10);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (12,'China',7);
+INSERT INTO Countries (ID_Country,Name_Country,ID_region) Values (13,'Nepal',7);
+--Statiuni
+INSERT INTO Cities (ID_City,Name_City,ID_Country ) VALUES (1,'Saint-Tropez',1);
+INSERT INTO Cities(ID_City,Name_City,ID_Country ) VALUES (2,'Nisa',1);
+INSERT INTO Cities (ID_City,Name_City,ID_Country ) VALUES (3,'Monaco',1);
+INSERT INTO Cities (ID_City,Name_City,ID_Country ) VALUES (4,'Cannes',1);
+INSERT INTO Cities (ID_City,Name_City,ID_Country ) VALUES (5,'Abu-Dhabi',7);
+INSERT INTO Cities (ID_City,Name_City,ID_Country ) VALUES (6,'Dubai',7);
+INSERT INTO Cities (ID_City,Name_City,ID_Country ) VALUES (7,'Medina',8);
+INSERT INTO Cities (ID_City,Name_City,ID_Country ) VALUES (8,'Las Vegas',2);
+INSERT INTO Cities (ID_City,Name_City,ID_Country ) VALUES (9,'Barcelona',9);
+INSERT INTO Cities (ID_City,Name_City,ID_Country ) VALUES (10,'Macau',3);
+
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(1,'Ambassador','0754312587',NULL,3,TO_DATE('dec 14,2005','mon dd,yyyy'),4,'Monaco','Avenue Prince Pierre','10');
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(2,'Fairmont','0731692403',NULL,3,TO_DATE('nov 24,2009','mon dd,yyyy'),4,'Monaco','Avenue Des Spélugues','12');
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(3,'Ramada','0742785737',NULL,5,TO_DATE('sep 26,2011','mon dd,yyyy'),5,'Abu Dhabi','Tourist Club Area','30');
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(4,'Emirates Palace','0764752173',NULL,5,TO_DATE('feb 07,2008','mon dd,yyyy'),5,'Abu Dhabi','West Corniche','41');
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(5,'Jumeirah','0721621320',NULL,6,TO_DATE('dec 22,2009','mon dd,yyyy'),5,'Dubai','Al Sofouh','23');
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(6,'Rotana Barsha','0763681626',NULL,6,TO_DATE('oct 21,2008','mon dd,yyyy'),5,'Dubai','Zayed Road','56');
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(7,'Chelsea Tower','0720952486',NULL,6,TO_DATE('nov 09,2006','mon dd,yyyy'),5,'Dubai','Zayed Road','1');
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(8,'Bellagio','0758428348',NULL,8,TO_DATE('nov 30,2009','mon dd,yyyy'),5,'Las Vegas','Boulevard South','360');
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(9,'MGM Grand','0734183829',NULL,8,TO_DATE('dec 19,2009','mon dd,yyyy'),5,'Las Vegas','Boulevard South','377');
+INSERT INTO Hotels (ID_Hotel,Name_Hotel,Phone_Hotel,Website_Hotel,ID_City,Open_date,No_stars,Neighbourhood,Street,Number_hotel)
+VALUES(10,'Sofitel Macau','0773973910',NULL,8,TO_DATE('oct 21,2012','mon dd,yyyy'),4,'Macau','Ponte','16');
+
+
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(1,'MIhai','Stoian','0743920921','mihaistoian@gmail.com',1860503581142,'Bucuresti','Roma','21');
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(2,'Faarooq ','Abdul','0726853803','faarooqabdul@yahoo.com',1741121031104,'Bucuresti','Teheran','7');
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(3,'Bucurescu','Vlad','0752397630','vladbucurescu@yahoo.com',1950517356201,'Bucuresti','Jean Texier','157');
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(4,'Dobra','Madalina','0729953461','madalinadobra@gmail.com',2880401356201,'Pipera','Iancu Nicolae','123');
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(5,'Darnescu','Iulia','0726411705','iuliadarnescu@gmail.com',2950308211190,'Bucuresti','Giuseppe Garibaldi','11');
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(6,'Bolocan','Daria','0761707932','dariabolocan@yahoo.com',2730911200112,'Bucuresti','Antiaeriana','27');
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(7,'Stefanescu','Laur','0733202459','laurstefanescu@yahoo.com',1661121003412,'Bucuresti','Banul Manta','9');
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(8,'Tanase','Roberta','0751834021','robertatanase@gmail.com',2851225044021,'Bucuresti','Stefan cel Mare','27');
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(9,'Dumitru','Costin','0720903451','costindumitru@gmail.com',1840101092117,'Bucuresti','Paris','53');
+INSERT INTO Clients(ID_Client,Name,Surname,Phone,Email,CNP,Residence_city,Street,Number_Client)
+VAlUES(10,'Rotariu','Mihaela','0743210625','mihaelarotariu@yahoo.com',2890721561233,'Bucuresti','Tribunei','28');
+
+INSERT INTO Suppliers VALUES (1,'Simprex','0721751149',NULL,'Metalwork',TO_DATE('may 06,1989','mon dd,yyyy'),'Paris','Cler','25');
+INSERT INTO Suppliers VALUES (2,'Ikea','0769535401',NULL,'Furniture',TO_DATE('jun 21,1999','mon dd,yyyy'),'Almhult','Agnefjall','71');
+INSERT INTO Suppliers VALUES (3,'Microsoft','0774210936',NULL,'Software',TO_DATE('apr 04,1975','mon dd,yyyy'),'Albuquerque','Main Street','66');
+INSERT INTO Suppliers VALUES (4,'Lindt','0764509802',NULL,'Food',TO_DATE('sep 18,1845','mon dd,yyyy'),'Zurich','Kilchberg','31');
+INSERT INTO Suppliers VALUES (5,'Swarovski','0733095206',NULL,'Jewelry',TO_DATE('aug 14,1895','mon dd,yyyy'),'Wattens','Tyrol','9');
+INSERT INTO Suppliers VALUES (6,'A.V. Royal','0742761828',NULL,'Food',TO_DATE('jun 15,2015','mon dd,yyyy'),'Bucuresti','Drumul Taberei','57');
+INSERT INTO Suppliers VALUES (7,'Oracle','0727823495',NULL,'Software',TO_DATE('jun 16,1977','mon dd,yyyy'),'Santa Clara','Redwood Shores','10');
+INSERT INTO Suppliers VALUES (8,'Nestle','0754096303',NULL,'Food',TO_DATE('may 08,1867','mon dd,yyyy'),'Vevey','Vaud','45');
+INSERT INTO Suppliers VALUES (9,'Coca-Cola','0748001306',NULL,'Food',TO_DATE('nov 22,1886','mon dd,yyyy'),'Atlanta','Coca-Cola Plaza','1');
+INSERT INTO Suppliers VALUES (10,'PandG','0766788646',NULL,'Beauty',TO_DATE('dec 13,1837','mon dd,yyyy'),'Cincinnati','PandG Plaza','1');
+
+INSERT INTO Reservations VAlUES(1,1,6,TO_DATE('nov 12,2008','mon dd,yyyy'),TO_DATE('nov 26,2008','mon dd,yyyy'));
+INSERT INTO Reservations VAlUES(2,3,6,TO_DATE('sep 11,2013','mon dd,yyyy'),TO_DATE('sep 22,2013','mon dd,yyyy'));
+INSERT INTO Reservations VAlUES(3,8,6,TO_DATE('aug 06,2012','mon dd,yyyy'),TO_DATE('aug 14,2013','mon dd,yyyy'));
+INSERT INTO Reservations VAlUES(4,8,2,TO_DATE('may 04,2014','mon dd,yyyy'),TO_DATE('may 09,2014','mon dd,yyyy'));
+INSERT INTO Reservations VAlUES(5,5,2,TO_DATE('jun 17,2015','mon dd,yyyy'),TO_DATE('jun 24,2015','mon dd,yyyy'));
+INSERT INTO Reservations VAlUES(6,10,7,TO_DATE('mar 03,2013','mon dd,yyyy'),TO_DATE('mar 09,2013','mon dd,yyyy'));
+INSERT INTO Reservations VAlUES(7,10,5,TO_DATE('feb 14,2014','mon dd,yyyy'),TO_DATE('feb 21,2014','mon dd,yyyy'));
+INSERT INTO Reservations VAlUES(8,2,5,TO_DATE('oct 16,2010','mon dd,yyyy'),TO_DATE('oct 24,2010','mon dd,yyyy'));
+INSERT INTO Reservations VAlUES(9,7,10,TO_DATE('jan 11,2016','mon dd,yyyy'),NULL);
+INSERT INTO Reservations VAlUES(10,5,3,TO_DATE('nov 21,2014','mon dd,yyyy'),TO_DATE('nov 29,2014','mon dd,yyyy'));
+INSERT INTO Reservations VAlUES(11,10,3,TO_DATE('may 15,2015','mon dd,yyyy'),TO_DATE('may 22,2015','mon dd,yyyy'));
+
+INSERT INTO Supply_Orders VALUES (1,5,5,TO_DATE('dec 21,2013','mon dd,yyyy'),'Bank Transfers','Airline',7100000);
+INSERT INTO Supply_Orders VALUES (2,5,9,TO_DATE('dec 19,2013','mon dd,yyyy'),'Cash','Airline',2230000);
+INSERT INTO Supply_Orders VALUES (3,5,10,TO_DATE('nov 24,2013','mon dd,yyyy'),'Bank Transfers','Shipping',900000);
+INSERT INTO Supply_Orders VALUES (4,5,6,TO_DATE('dec 07,2015','mon dd,yyyy'),'Bank Transfers','Shipping',450000);
+INSERT INTO Supply_Orders VALUES (5,1,10,TO_DATE('sep 16,2012','mon dd,yyyy'),'Bank Transfers','Airline',20000);
+INSERT INTO Supply_Orders VALUES (6,1,8,TO_DATE('mar 08,2014','mon dd,yyyy'),'Bank Transfers','Rail',80000);
+INSERT INTO Supply_Orders VALUES (7,8,5,TO_DATE('jun 18,2010','mon dd,yyyy'),'Cash','Airline',9000000);
+INSERT INTO Supply_Orders VALUES (8,8,9,TO_DATE('apr 06,2015','mon dd,yyyy'),'Bank Transfers','Shipping',125000);
+INSERT INTO Supply_Orders VALUES (9,10,5,TO_DATE('jan 15,2013','mon dd,yyyy'),'Cash','Airline',8500000);
+INSERT INTO Supply_Orders VALUES (10,10,7,TO_DATE('feb 21,2013','mon dd,yyyy'),'Bank Transfers','Direct',1200000);

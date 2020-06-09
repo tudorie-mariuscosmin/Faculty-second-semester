@@ -1,0 +1,9 @@
+The information related to the textbooks given by a school to its students at the beginning of the year are stored in CSV formatted text file, 2 lines for each student:
+
+student_id, name, class_no
+discipline_name_1, ..., discipline_name_n
+The CSV file will be downloaded from online.ase.ro platform (file data\students.txt).
+
+1. Read the file into a List <Student>, where class Student has the following private fields:  studentID (int), name (String), classNo (String), disciplines (List <String>).
+
+2. Print to the console the students who received textbooks in Mathematics.

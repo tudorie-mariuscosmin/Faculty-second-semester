@@ -1,0 +1,10 @@
+10001,Ifrim Marian,5B
+Geography,History,Mathematics,Physics,Romanian
+10002,Paraschiv Maria,5B
+Geography,History,Mathematics,Chemistry,Romanian
+10003,Iacob Mircea,6C
+English,History,Mathematics,Physics,Romanian
+10004,Panfil Violeta,7A
+Geography,History,Chemistry,Romanian
+10005,Popescu Catalina,8D
+Geography,History,Mathematics,Physics,Chemistry,Romanian

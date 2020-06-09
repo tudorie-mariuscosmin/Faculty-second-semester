@@ -1,0 +1,94 @@
+---Creare
+CREATE TABLE Regions (
+ID_region  number(3) not null,
+name_region varchar2(25) not null);
+ALTER TABLE Regions
+ADD CONSTRAINT ID_Region_PK primary key(ID_Region);
+
+Create table Countries(
+ID_Country number(3) not null,
+Name_Country varchar2(25) not null,
+ID_Region number (3) not null);
+ALTER TABLE Countries
+ADD CONSTRAINT ID_Country_PK primary key(ID_Country);
+ALTER TABLE Countries
+ADD CONSTRAINT Regions_Countries_FK foreign key (ID_Region) references Regions(ID_Region);
+
+Create table Cities(
+ID_City number(5) not null,
+Name_City varchar2(30) not null,
+ID_Country number (3) not null);
+ALTER TABLE Cities
+ADD CONSTRAINT ID_City_PK primary key(ID_City);
+ALTER TABLE Cities
+ADD CONSTRAINT Countries_Cities_FK foreign key (ID_Country) references Countries(ID_Country);
+
+Create table Hotels (
+ID_Hotel number (4) not null,
+Name_Hotel varchar2(20) not null,
+Phone_Hotel varchar2(15) not null,
+Website_Hotel varchar2(40),
+ID_City number(5) not null,
+Open_date date,
+No_stars char(1),
+Neighbourhood varchar2(20) not null,
+Street varchar2(35) not null,
+Number_hotel varchar2(3) not null);
+ALTER TABLE Hotels
+ADD CONSTRAINT ID_Hotel_PK primary key(ID_Hotel);
+ALTER TABLE Hotels
+ADD CONSTRAINT Cities_Hotels_FK foreign key (ID_City) references Cities(ID_City);
+
+CREATE TABLE  Clients(
+ID_Client number(6) NOT NULL,
+Name varchar2(20)NOT NULL,
+Surname varchar2(20)NOT NULL,
+Phone varchar2(15),
+Email varchar2(40),
+CNP number(13) UNIQUE,
+Residence_city varchar2(20)NOT NULL,
+Street varchar2(40)NOT NULL,
+Number_Client varchar2(3));
+ALTER TABLE Clients
+ADD CONSTRAINT ID_Client_PK primary key(ID_Client);
+
+CREATE TABLE Reservations(
+ID_Reservation number(7) NOT NULL,
+ID_Hotel number(4) NOT NULL,
+ID_Client number(6) NOT NULL,
+Start_Date date NOT NULL,
+End_Date date);
+ALTER TABLE Reservations
+ADD CONSTRAINT ID_Reservation_PK primary key(ID_Reservation);
+ALTER TABLE Reservations
+ADD CONSTRAINT Hotelels_Reservations_FK foreign key (ID_Hotel) references Hotels(ID_Hotel);
+ALTER TABLE Reservations
+ADD CONSTRAINT Clients_Reservations_FK foreign key (ID_Client) references Clients(ID_Client);
+
+CREATE TABLE Suppliers(
+ID_Supplier number(4) NOT NULL,
+Supplier varchar2(20) NOT NULL,
+Phone varchar2(15) NOT NULL,
+Email varchar2(40),
+Specialization varchar2(20) NOT NULL,
+Start_date date NOT NULL,
+City varchar2(20) NOT NULL,
+Street varchar2(40) NOT NULL,
+Number_supplier varchar2(3) NOT NULL);
+AlTER TABLE Suppliers
+ADD CONSTRAINT ID_Suppliers_PK primary key (ID_Supplier);
+
+CREATE TABLE Supply_Orders(
+Order_no number(6)NOT NULL,
+ID_Hotel number(4) NOT NULL,
+ID_Supplier number(4) NOT NULL,
+Date_order Date NOT NULL,
+Payment_method varchar2(20) NOT NULL,
+Delivery_method varchar(30) NOT NULL,
+Value number(8) NOT NULL);
+ALTER TABLE Supply_Orders
+ADD CONSTRAINT Supply_Orders_PK primary key (Order_no);
+ALTER TABLE Supply_Orders
+ADD CONSTRAINT Hotel_Supply_Orders_FK foreign key(ID_Hotel) references Hotels(ID_Hotel);
+ALTER TABLE Supply_Orders
+ADD CONSTRAINT Suppliers_Supply_Orders_FK foreign key(ID_Supplier) references Suppliers(ID_Supplier);

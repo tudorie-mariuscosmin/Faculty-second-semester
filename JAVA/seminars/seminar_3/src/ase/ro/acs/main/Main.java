@@ -11,9 +11,24 @@ public class Main {
 		//referece types in java: class/ interface / enum
 		
 		Taxable t = new Car("Dacia", 100, "red", 1400);
-		 System.out.println(t.computeTax()); 
-		 Vehicle v = new Car();
-		 v.Move();
+		System.out.println(t.computeTax()); 
+		Vehicle v = new Car();
+		v.Move();
+		 
+		Car car = new Car("Renault", 120, "yellow", 2000);
+		 
+		if(car instanceof Cloneable) {
+			Car c2;
+			try {
+				c2 = (Car) car.clone();
+				c2.setCapacity(1800);
+				System.out.println(car.getCapacity());
+			} catch (CloneNotSupportedException e) { 
+				e.printStackTrace();
+			}
+			
+			
+		}
 		
 	}
 

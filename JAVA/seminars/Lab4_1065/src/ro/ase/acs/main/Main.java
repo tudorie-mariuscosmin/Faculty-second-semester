@@ -1,8 +1,8 @@
 package ro.ase.acs.main;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 import ro.ase.acs.classes.Car;
 import ro.ase.acs.classes.Vehicle;
@@ -35,22 +35,31 @@ public class Main {
 			}
 		}
 		
-		List <Integer> list =  new Vector<>();
-		list.add(5);
-		list.add(4);
-		list.add(3);
-		list.add(3, 2);
-		list.remove(0);
+		List<Integer> list = new ArrayList<>();
 		
-		for(Integer i : list) {
-			System.out.printf("%d", i);
+		list.add(3);
+		list.add(4);
+		list.add(5);
+		list.add(6);
+		
+		
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i));
 		}
 		
-		list.add(0, 7);
-		System.out.println();
+		list.remove(2);
+		
+		list.add(1,  8);
+		System.out.println("------------");
+		for(Integer i : list) {
+			System.out.println(i);
+		}
+		System.out.println("------------");
+		list.set(0, 1);
 		for(Iterator<Integer> it = list.iterator(); it.hasNext();) {
 			System.out.println(it.next());
 		}
+		
 		
 	}
 

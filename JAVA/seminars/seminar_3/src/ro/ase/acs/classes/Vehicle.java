@@ -1,6 +1,6 @@
 package ro.ase.acs.classes;
 
-public abstract class Vehicle {
+public abstract class Vehicle implements Cloneable {
 	private String name;
 	private int speed;
 	
@@ -24,9 +24,16 @@ public abstract class Vehicle {
 	}
 
 
-	
-	
 	public abstract void Move();
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		Vehicle copy = (Vehicle)super.clone();
+		copy.name = name;
+		copy.speed = speed;
+		return copy;
+	}
+	
 	
 	
 }

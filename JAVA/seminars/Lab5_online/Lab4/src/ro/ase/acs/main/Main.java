@@ -72,38 +72,36 @@ public class Main {
 			System.out.println(it.next());
 		}
 		
+		Set<Car> set = new TreeSet<Car>();
 		
-		Set <Car> set = new TreeSet<Car>();
 		set.add(c);
-		c2.setCapacity(1600);
+		c2.setCapacity(2000);
 		set.add(c2);
 		
 		
-		for(Car x :set) {
+		for(Car x : set)
 			System.out.println(x);
-		}
-		
 		
 		Map<Car, String> map = new HashMap<Car, String>();
-		map.put(c,  "Ion Ionescu");
-		map.put(c2, "George Georgescu");
+		
+		map.put(c, "Tudorie Marius");
+		map.put(c2 , "John doe");
+		map.put(c, "Jane Doe");
 		Car c3 = null;
 		try {
-			c3 = (Car)c.clone();
-		}catch(CloneNotSupportedException e){
+			 c3 =(Car) c.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		map.put(c3, "Petru Popescu");
 		
+		map.put(c3, "tom ford");
+		System.out.println("------------------");
 		for(Car x: map.keySet()) {
-			System.out.printf("%s : ", x.toString());
+			System.out.printf("%s: ", x.toString());
 			System.out.println(map.get(x));
 		}
 		
-		int x = 2;
-		int y = 3;
-		add(c, c2);
-		System.out.println(c.getCapacity());
 		
 	}
 

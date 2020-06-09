@@ -233,11 +233,11 @@ namespace Project_SupplyBusiness
         private void btnBinarySerialization_Click(object sender, EventArgs e)
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            using( FileStream suppliersStream = File.Create("binaries/suppliers.bin"))
+            using( FileStream suppliersStream = File.Create("suppliers.bin"))
             {
                 formatter.Serialize(suppliersStream, suppliers);
             }
-            using(FileStream contractStream = File.Create("binaries/contracts.bin"))
+            using(FileStream contractStream = File.Create("contracts.bin"))
             {
                 formatter.Serialize(contractStream, contracts);
             }
@@ -248,12 +248,12 @@ namespace Project_SupplyBusiness
         private void btnBinaryDeserialization_Click(object sender, EventArgs e)
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            using(FileStream supStream = File.OpenRead("binaries/suppliers.bin"))
+            using(FileStream supStream = File.OpenRead("suppliers.bin"))
             {
                 suppliers = (List<Supplier>)formatter.Deserialize(supStream);
                 displaySupplers();
             }
-            using(FileStream contStream = File.OpenRead("binaries/contracts.bin"))
+            using(FileStream contStream = File.OpenRead("contracts.bin"))
             {
                 contracts = (BindingList<Contract>) formatter.Deserialize(contStream);
                 dataGridView1.DataSource = contracts;
@@ -263,13 +263,13 @@ namespace Project_SupplyBusiness
         private void btnXMLSerialization_Click(object sender, EventArgs e)
         {
             XmlSerializer serializerSupplier = new XmlSerializer(typeof(List<Supplier>));
-            using(FileStream supStream = File.Create("XML/suppliers.xml"))
+            using(FileStream supStream = File.Create("suppliers.xml"))
             {
                 serializerSupplier.Serialize(supStream, suppliers);
             }
 
             XmlSerializer serializerContract = new XmlSerializer(typeof(BindingList<Contract>));
-            using (FileStream contrStream = File.Create("XML/contracts.xml"))
+            using (FileStream contrStream = File.Create("contracts.xml"))
             {
                 serializerContract.Serialize(contrStream, contracts);
             }
@@ -280,7 +280,7 @@ namespace Project_SupplyBusiness
         private void btnXMLDeserialization_Click(object sender, EventArgs e)
         {
             XmlSerializer serializerSupplier = new XmlSerializer(typeof(List<Supplier>));
-            using (FileStream supStream = File.OpenRead("XML/suppliers.xml"))
+            using (FileStream supStream = File.OpenRead("suppliers.xml"))
             {
               suppliers = (List<Supplier>)serializerSupplier.Deserialize(supStream);
               displaySupplers();
@@ -288,7 +288,7 @@ namespace Project_SupplyBusiness
             }
 
             XmlSerializer serializerContract = new XmlSerializer(typeof(BindingList<Contract>));
-            using (FileStream contrStream = File.OpenRead("XML/contracts.xml"))
+            using (FileStream contrStream = File.OpenRead("contracts.xml"))
             {
                 contracts= (BindingList<Contract>) serializerContract.Deserialize(contrStream);
                 dataGridView1.DataSource = contracts;

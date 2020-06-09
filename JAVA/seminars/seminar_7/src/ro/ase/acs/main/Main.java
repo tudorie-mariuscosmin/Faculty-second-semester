@@ -1,7 +1,10 @@
 package ro.ase.acs.main;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import ro.ase.acs.classes.Sum;
@@ -10,6 +13,10 @@ import ro.ase.acs.interfaces.Movable;
 import ro.ase.acs.interfaces.UnaryOperator;
 
 public class Main {
+	
+	public static int transform(int x) {
+		return (x*2)+10;
+	}
 
 	public static void main(String[] args) {
 		BinaryOperator operator = new Sum();
@@ -26,6 +33,9 @@ public class Main {
 		
 		operator = (o1, o2)->o1*o2;
 		
+		operator = (a,b)->{
+			return (a+b)/2;
+		};
 		System.out.println(operator.operate(3, 6));
 		
 		Movable m = ()-> System.out.println("The car is moving");
@@ -35,22 +45,33 @@ public class Main {
 		
 		System.out.println(op.operate(5));
 		
-		List<Integer> list = Arrays.asList(1,4,5,12,8,4);
 		
-		long nb = list.stream().distinct().filter(e-> e<9).count();
 		
+		
+		List<Integer> list = Arrays.asList(3,4,5,6,7,8,9,14,12);
+		
+		long nb =  list.stream().filter(e-> e%2 ==0).count();
 		System.out.println(nb);
-		List<Integer> newList = list.stream().filter(e-> e % 2 == 1).collect(Collectors.toList());
 		
-		for(Integer i: newList) {
+		List<Integer> newList = list.stream().sorted().distinct().filter(e -> e < 8 ).collect(Collectors.toList() );
+		
+		
+		for (int i : newList)
 			System.out.println(i);
-		}
 		
-		List<String> stringList = Arrays.asList("someting", "Something else", "a", "abs");
-		String FiltredStrings = stringList .stream().filter(s->s.length()>2).sorted().collect(Collectors.joining((", ")));
-		System.out.println(FiltredStrings);
 		
-		list.stream().distinct().map(n -> n*n).forEach(n->System.out.println(n));
+		List<String> strings = Arrays.asList("asfdafd", "asffdasfaf", "afdscea", "a", "abc", "gfbers", "cd");
+		
+		String s= strings.stream().filter(e-> e.startsWith("a")).collect(Collectors.joining(" || "));
+		System.out.println(s);
+		
+		list.stream().distinct().sorted().map(e->e*10).forEach(e-> System.out.println(e));
+		Random random = new Random();
+		random.ints().limit(7).sorted().forEach(System.out::println);
+		
+		
+		list.stream().map(Main::transform).forEach(System.out::println);
+		
 	}
 
 }

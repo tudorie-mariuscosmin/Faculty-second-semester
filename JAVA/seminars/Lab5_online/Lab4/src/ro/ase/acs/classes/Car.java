@@ -90,33 +90,58 @@ public final class Car extends Vehicle implements Taxable, Comparable<Car> {
 
 	@Override
 	public int compareTo(Car o) {
-		return 1;
-//		if(capacity < o.capacity) {
-//			return -1;
-//		}else if(capacity== o.capacity) {
-//			return 0;
-//		}else {
-//			return 1;
-//		}
-	}
-	
-	
-	
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof Car) {
-			Car o = (Car)obj;
-			return getName() .equals(o.getName()) && getSpeed() == o.getSpeed()
-					&& color.equals(o.getColor())&& capacity== o.capacity;
-		}
-		return false;
+		if(capacity< o.capacity)
+			return -1;
+		else if(capacity == o.capacity)
+			return 0;
+		else
+			return 1;
 	}
 
 	@Override
 	public int hashCode() {
-		return (31* getName().hashCode() + getSpeed()) * 31 * color.hashCode() + capacity;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + capacity;
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Car other = (Car) obj;
+		if (capacity != other.capacity)
+			return false;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
+			return false;
+		return true;
+	}
+
 	
+	
+//	@Override
+//	public boolean equals(Object obj) {
+//		if(obj instanceof Car) {
+//			Car o = (Car)obj;
+//			return(getName().equals(o.getName()) && getSpeed() == o.getSpeed() && color.equals(o.color)&& capacity == o.capacity);
+//		}else
+//			return false;
+//		
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return((31* getName().hashCode() + getSpeed()) *31* color.hashCode() +capacity);
+//	}
 	
 
 }
