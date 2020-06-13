@@ -1,0 +1,94 @@
+trigger that woun't let the reduce of the value with more than 20% if the supplier doesn't have more that 2 orders or more than 50 % for all orders;
+doesn't work because has an select on the same table
+create or replace trigger check_fidelity 
+before update on supply_orders for each row
+declare
+no_orders number :=0;
+cursor c is select* from supply_orders;
+begin 
+    for i in c loop
+        if i.id_supplier = :old.id_supplier then
+            no_orders := no_orders +1;
+        end if;
+    end loop;
+    
+    if no_orders< 2 then
+        if :new.value < :old.value*0.8 then
+            raise_application_error(-20001, 'You cant reduce the value of the command with more than 20% if the no of orders is smaller than 2');
+        end if;
+    else
+        if :new.value < :old.value*0.5 then
+            raise_application_error(-20002, 'You cant reduce the value of the command with more than 50%');
+        end if;
+    end if;
+        
+end;
+/
+
+update supply_orders set value = 8000 where order_no = 10;
+--------------------------------------------------------------------------------------------------
+procedure that takes in hotel id and a date and outputs the numer of reservations of that hotel in that date
+
+create or replace procedure get_no_reservation_hotel(p_id number,p_date date, p_no_clients out number)is
+cursor c is select * from reservations where id_hotel = p_id;
+start_d date;
+end_d date;
+no_clients number :=0;
+begin
+    for i in c loop
+        start_d := i.start_date;
+        end_d := i.end_date;
+        if p_date between start_d and end_d then
+            no_clients:= no_clients+1;
+        end if;
+    end loop;
+    p_no_clients:= no_clients;
+end;
+/
+
+
+declare
+v_no_res number;
+begin
+get_no_reservation_hotel(1, TO_DATE('nov 18,2008','mon dd,yyyy'), v_no_res);
+dbms_output.put_line(v_no_res);
+end;
+/
+-------------------------------------------------------------------------------------------------------
+function that return the value of the orders of the year passed in the parameters
+create or replace function get_value(p_date varchar2) return number is
+cursor c is select * from supply_orders;
+v_value number :=0;
+begin
+    for i in c loop
+        if i.date_order between to_date('jan 01,'||p_date, 'mm dd,yyyy') and to_date('dec 31,'||p_date, 'mm dd,yyyy') then
+            v_value :=  v_value+ i.value;
+        end if;
+    end loop;
+    return v_value;
+end;
+/
+
+begin 
+dbms_output.put_line(get_value('2013'));
+end;
+/
+-------------------------------------------------------
+procedure that prints all the clients a hotel has
+
+create or replace procedure printClients(p_id in number) is
+cursor r is select * from reservations;
+client_name clients.name%type;
+client_surname clients.surname%type;
+begin 
+    for i in r loop
+        if i.id_hotel = p_id then 
+            select name, surname into client_name, client_surname from clients where id_client = i.id_client;
+            dbms_output.put_line(client_name||' ' ||client_surname);
+         end if;
+    end loop;
+
+end;
+/
+
+exec printClients(10);

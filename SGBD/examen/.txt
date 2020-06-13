@@ -1,0 +1,44 @@
+create or replace function get_high_stars_hotels(p_city varchar2) return number is
+cursor c(p_id number) is select * from hotels where id_city = p_id; 
+v_city_id number;
+v_no_hotels number :=0;
+begin
+select id_city into v_city_id from cities where name_city = p_city;
+for i in c(v_city_id) loop
+    if i.no_stars ='4' or i.no_stars ='5' then
+        v_no_hotels:= v_no_hotels+1;
+    end if;
+
+end loop;
+return v_no_hotels;
+
+exception when no_data_found then 
+    dbms_output.put_line('The city introduced doesnt have any hotels');
+
+
+end;
+/
+set serveroutput on
+begin
+    dbms_output.put_line(get_high_stars_hotels('Las Vegas'));
+end;
+/
+
+create or replace trigger block_reservations 
+before insert or update on reservations for each row
+declare
+
+begin 
+-- won't let the insert of update with end date in the next month
+if :new.end_date between sysdate and ADD_MONTHS(sysdate,1) then
+    raise_application_error(-20002, 'Reservation are not allowed to end in the next month!');
+end if;
+
+--won't let the update of the reservetion that has the end date in the next month
+if :old.end_date between sysdate and ADD_MONTHS(sysdate,1) then
+    raise_application_error(-20002, 'Reservation are not allowed to end in the next month!');
+end if;
+
+
+end;
+/

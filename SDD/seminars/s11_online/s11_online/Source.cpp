@@ -1,137 +1,156 @@
-#include "stdio.h"
-#include "malloc.h"
-#include "string.h"
+#include<stdio.h>
+#include<malloc.h>
+#include<string.h>
+// binary search tree
 struct Student
 {
 	char* name;
-	int prioKey;
+	int pKey;
 };
 
-struct Heap
-{
-	Student* *elements = NULL;
-	int size = 0;
-	int noEl = 0;
+struct BstNode {
+	Student* info;
+	BstNode* left;
+	BstNode* right;
 };
 
-void initHeap(Heap& heap, int dim)
-{
-	heap.size = dim;
-	heap.noEl = 0;
-	heap.elements = (Student**)malloc(sizeof(Student*)*dim);
-	memset(heap.elements, 0, sizeof(Student*)* dim);
+Student* createStud(char* name, int key) {
+	Student* stud = (Student*)malloc(sizeof(Student));
+	stud->name = (char*)malloc(strlen(name) + 1);
+	strcpy(stud->name, name);
+	stud->pKey = key;
+	return stud;
 }
 
-Student* createElement(char* name, int key)
-{
-	Student* student = (Student*)malloc(sizeof(Student));
-	student->prioKey = key;
-	student->name = (char*)malloc(strlen(name) + 1);
-	strcpy(student->name, name);
-	return student;
-}
-void ReheapUp(Heap& heap, int child)
-{
-	int parent;
-	//recursive stop condition
-	if (child > 0)
-	{
-		parent = (child - 1) / 2;
-		if (heap.elements[child]->prioKey > heap.elements[parent]->prioKey)
-		{
-			//switch
-			Student* aux = heap.elements[parent];
-			heap.elements[parent] = heap.elements[child];
-			heap.elements[child] = aux;
-			ReheapUp(heap, parent);
-		}
-	}
-}
-void EnqueuePQ(Heap& heap, Student* value)
-{
-	if (heap.noEl < heap.size)
-	{
-		heap.elements[heap.noEl] = value;
-		ReheapUp(heap, heap.noEl);
-		heap.noEl++;
-	}
+BstNode* createNode(Student* stud) {
+	BstNode* node = (BstNode*)malloc(sizeof(BstNode));
+	node->info = stud;
+	node->right = NULL;
+	node->left = NULL;
+	return node;
 }
 
-void printPQ(Heap heap)
-{
-	for (int i = 0; i < heap.noEl; i++)
-	{
-		printf("Heap index: %3d <---> (Key: %3d, Value: %s)\n",
-			i, heap.elements[i]->prioKey, heap.elements[i]->name);
+void insetInBST(BstNode*& root, Student* stud) {
+	if (root == NULL) {
+		root = createNode(stud);
 	}
-}
-void ReheapDown(Heap*& heap, int parent)
-{
-	int maxChild;
-	int leftChild = 2 * parent + 1;
-	int rightChild = 2 * parent + 2;
-	//recursive stop condition
-	if (leftChild <= heap->noEl - 1)
+	else
 	{
-		if (leftChild == heap->noEl - 1)
-			maxChild = leftChild;
+		if (root->info->pKey > stud->pKey)
+			insetInBST(root->left, stud);
+		else if (root->info->pKey < stud->pKey)
+			insetInBST(root->right, stud);
 		else
-		{
-			if (heap->elements[leftChild]->prioKey < heap->elements[rightChild]->prioKey)
-				maxChild = rightChild;
+			printf("Duplicate key detected, cant be inserted!\n");
+	}
+}
+
+void printBstInorder(BstNode* root) {
+	if (root != NULL) {
+		printBstInorder(root->left);
+		printf("Student %s : %d \n", root->info->name, root->info->pKey);
+		printBstInorder(root->right);
+	}
+}
+void printBstPreOrder(BstNode* root) {
+	if (root != NULL) {
+		printf("Student %s : %d \n", root->info->name, root->info->pKey);
+		printBstPreOrder(root->left);
+		printBstPreOrder(root->right);
+	}
+}
+void printBstPostOrder(BstNode* root) {
+	if (root != NULL) {
+		printBstInorder(root->left);
+		printBstInorder(root->right);
+		printf("Student %s : %d \n", root->info->name, root->info->pKey);
+	}
+}
+
+void deleteBstLogical(BstNode*& root, BstNode*& left) {
+	if (left->right != NULL) {
+		deleteBstLogical(root, left->right);
+	}
+	else {
+		Student* val = root->info;
+		root->info = left->info;
+		free(val->name);
+		free(val);
+		BstNode* aux = left;
+		left = aux->left;
+		free(aux);
+	}
+}
+
+void deleteBst(BstNode*& root, int key) {
+	if (root) {
+		if (root->info->pKey < key)
+			deleteBst(root->right, key);
+		else if (root->info->pKey > key)
+			deleteBst(root->left, key);
+		else {
+			if (root->left == NULL && root->right == NULL) {
+				free(root->info->name);
+				free(root->info);
+				free(root);
+				root = NULL;
+			}
 			else
-				maxChild = leftChild;
+			{
+				if (root->left == NULL || root->right == NULL) {
+					BstNode* tmp = NULL;
+					if (root->left == NULL)
+						tmp = root->left;
+					else
+						tmp = root->right;
+					free(root->info->name);
+					free(root->info);
+					free(root);
+					root = tmp;
+				}
+				else {
+					deleteBstLogical(root, root->left);
+				}
+			}
 		}
-		if (heap->elements[parent]->prioKey < heap->elements[maxChild]->prioKey)
-		{
-			Student* aux = heap->elements[parent];
-			heap->elements[parent] = heap->elements[maxChild];
-			heap->elements[maxChild] = aux;
-			ReheapDown(heap, maxChild);
-		}
-	}
-}
-Student* DequeuePQ(Heap* heap)
-{
-	Student* result = NULL;
-	if (heap->noEl > 0)
-	{
-		result = heap->elements[0];
-		heap->noEl--;
-		heap->elements[0] = heap->elements[heap->noEl];
-		ReheapDown(heap, 0);
-	}
-	return result;
-}
-void main()
-{
-	FILE* pFile = fopen("Data.txt", "r");
-	Student* data = NULL;
-	if (pFile)
-	{
-		Heap priorityQueue;
-		initHeap(priorityQueue, 100);
 
-		while (!feof(pFile))
-		{
-			//1.read the name
-			char buffer[100]; int key = 0;
-			fscanf(pFile, "%s", buffer);
-			//2.read the year
-			fscanf(pFile, "%d", &key);
-			//3.create useful info
-			Student* stud = createElement(buffer, key);
-			//4.insert Student into heap structure
-			EnqueuePQ(priorityQueue, stud);
-		}
-		fclose(pFile);
-		printPQ(priorityQueue);
-
-		Student* value = NULL;
-		while ((value = DequeuePQ(&priorityQueue)) != NULL)  //  O(n log n)
-		{
-			printf("Student: %3d <---> %s\n",
-				value->prioKey, value->name);
-		}
 	}
-}		
+	else
+		printf("The key doesn't exist!");
+	
+
+	
+}
+
+void main() {
+	FILE * file = fopen("Data.txt", "r");
+	BstNode* root = NULL;
+	if (file) {
+		while (!feof(file))
+		{
+			char buffer[50];
+			int key;
+			fscanf(file, "%s", buffer);
+			fscanf(file, "%d", &key);
+			Student* stud = createStud(buffer, key);
+			insetInBST(root, stud);
+
+		}
+		printf("----Inorder Print--------\n");
+		printBstInorder(root);
+
+		printf("----Pre-Order Print--------\n");
+		printBstPreOrder(root);
+
+		printf("----Post-Order Print--------\n");
+		printBstPostOrder(root);
+
+
+		deleteBst(root, 29);
+		printf("----Inorder Print--------\n");
+		printBstInorder(root);
+
+
+	}
+
+}

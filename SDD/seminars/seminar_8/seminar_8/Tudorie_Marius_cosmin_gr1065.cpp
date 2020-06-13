@@ -1,128 +1,108 @@
-#include "stdio.h"
-#include "malloc.h"
-#include "string.h"
-struct Student
-{
+#include<stdio.h>
+#include<malloc.h>
+#include<string.h>
+
+struct Student {
 	char* name;
-	int year;
-};
-struct ListNode
-{
-	Student* info;
-	ListNode* next;
+	int age;
 };
 
+struct Node {
+	Student* info;
+	Node* next;
+};
 struct HashTable
 {
-	ListNode** buckets = NULL;
+	Node** buckets = NULL;
 	int size = 0;
-	int noElements = 0;
+	int noElem = 0;
 };
 
-void initHashTable(HashTable& hashtable, int dim)
-{
-	hashtable.size = dim;
-	hashtable.noElements = 0;
-	hashtable.buckets = (ListNode**)malloc(sizeof(ListNode*)*dim);
-	memset(hashtable.buckets, NULL, sizeof(ListNode*)*dim);// initializam vectorul cu NULL
+void initHashTable(HashTable& hashTable, int size) {
+	hashTable.size = size;
+	hashTable.noElem = 0;
+	hashTable.buckets = (Node**)malloc(sizeof(Node*)*size);
+	memset(hashTable.buckets, NULL, sizeof(Node*)*size);
 }
-int fHash( char* key, int dim)
-{
-	int indexLoc = key[0] % dim;
-	return indexLoc;
+int HashFunction(char* key, int hashTableSize) {
+	int sum = 0;
+	for (int i = 0; i < strlen(key); i++) {
+		sum += key[i];
+	}
+	return sum % hashTableSize;
 }
 
-ListNode* createElement(Student* info)
-{
-	ListNode* node = (ListNode*)malloc(sizeof(ListNode));
-	node->info = info;
+Node* createNode(Student* student) {
+	Node* node = (Node*)malloc(sizeof(Node));
+	node->info = student;
 	node->next = NULL;
 	return node;
 }
-
-void insertElement(ListNode*& list, ListNode* node)
-{
-	if (list != NULL)
-		node->next = list;
-	list = node;
-}
-
-void insertHT(HashTable* hashTable, Student* student)
-{
-	//1. get the index position for inserting the student
-	int index = fHash(student->name, hashTable->size);
-
-	//2. create a new element to be inserted
-	ListNode* node = createElement(student);
-
-	//3. insert the newly created element into HT
-	ListNode* list = hashTable->buckets[index];
-	insertElement(list, node);
-	hashTable->noElements++;
-
-}
-
-Student* getHT(HashTable& hashTable,  char* key)
-{
-	/*int index = key[0] % hashTable.size;
-	Student* student = hashTable.buckets[index]->info;
+Student* createStudent(char* name, int age) {
+	Student* student = (Student*)malloc(sizeof(Student));
+	student->name = (char*)malloc(strlen(name) + 1);
+	strcpy(student->name, name);
+	student->age = age;
 	return student;
-*/
-	Student *value = NULL;
-	int index = fHash(key, hashTable.size);
-	
-	ListNode* proxyList = hashTable.buckets[index];
-
-	while (proxyList && strcmp(proxyList->info->name, key) != 0) {
-		proxyList = proxyList->next;
-	}
-	if (proxyList)
-		value = proxyList->info;
-	return value;
-
-
-
-
 }
-
-void main()
-{
-	FILE* pFile = fopen("Data.txt", "r");
-	Student* data = NULL;
-	if (pFile)
+void AddNode(Node*&list, Node* node) {
+	if (list == NULL)
+		list = node;
+	else
 	{
-		int dim = 0, index = 0;
-	
-		HashTable hashTable;
-
-		initHashTable(hashTable, 7);
-
-		while (!feof(pFile))
-		{
-			//1.read the name
-			char buffer[100]; int year = 0;
-			fscanf(pFile, "%s", buffer);
-			//2.read the year
-			fscanf(pFile, "%d", &year);
-
-			Student* student = (Student*)malloc(sizeof(Student));
-			student->year = year;
-			student->name = (char*)malloc(strlen(buffer) + 1);
-			strcpy(student->name, buffer);
-
-			insertHT(&hashTable, student);
-			
-			
+		Node* tmp = list;
+		while (tmp->next) {
+			tmp = tmp->next;
 		}
-
-		Student*info = getHT(hashTable, "Ionescu");
-		if(info)
-			printf("Student %s, year%d\n", info->name, info->year);
-		fclose(pFile);
-
-		
+		tmp->next = node;
 	}
+}
+void AddToHashTable(HashTable& hashTable, Student* student) {
+	//1.get the index from a hashFunction
+	int index = HashFunction(student->name, hashTable.size);
+	//2. create a node for the information
+	Node* node = createNode(student);
+	//3.insert the new node in table at the corect index;
+	AddNode(hashTable.buckets[index], node);
+	hashTable.noElem++;
 }
 
 
+Student* getHashTable(HashTable hashTable, const char* key) {
+	Student* val = NULL;
+	char* newKey = (char*)key;
+	int index = HashFunction(newKey, hashTable.size);
+	Node* list = hashTable.buckets[index];
+	while (list && strcmp(list->info->name, key) != 0) {
+		list = list->next;
+	}
+	if (list!=NULL &&strcmp(list->info->name, key) == 0) {
+		val = list->info;
+	}
+	return val;
+}
 
+int main() {
+	FILE* pfile = fopen("Data.txt", "r");
+	HashTable hashTable;
+	initHashTable(hashTable, 5);
+	if (pfile) {
+		while (!feof(pfile))
+		{
+			char buffer[50];
+			int age;
+			fscanf(pfile, "%s", buffer);
+			fscanf(pfile, "%d", &age);
+			Student* student = createStudent(buffer, age);
+			AddToHashTable(hashTable, student);
+		}
+	}fclose(pfile);
+
+	Student* info = getHashTable(hashTable, "Popescu");
+	if (info)
+		printf("%s : %d \r\n", info->name, info->age);
+	info = getHashTable(hashTable, "Antonescu");
+	if (info)
+		printf("%s : %d \r\n", info->name, info->age);
+
+}

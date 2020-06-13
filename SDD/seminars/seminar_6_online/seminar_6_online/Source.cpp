@@ -27,7 +27,6 @@ void main()
 	Student* data = NULL;
 	if (pFile)
 	{
-		int dim = 0, index = 0;
 		ListNode* head = NULL;
 		while (!feof(pFile))
 		{

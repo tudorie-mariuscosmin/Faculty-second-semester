@@ -70,7 +70,7 @@ NodeBST* rebelanceBst(NodeBST* pivot) {
 	else if (pivot->balanceFactor == 2) {
 		NodeBST* desc = pivot->right;
 		if (desc->balanceFactor == -1) {
-			pivot->right 
+			pivot->right;
 		}
 	}
 }

@@ -5,13 +5,14 @@ void main()
 {
 	int *** matrix = NULL;
 	FILE* pFile = fopen("data.txt", "r");
+	int noCols = 0, noRows = 0;
 	if (pFile)
 	{
-		int noCols = 0, noRows = 0;
+		
 		fscanf(pFile, "%d %d", &noRows, &noCols);
 
 		matrix = (int***)malloc(sizeof(int**)*noRows);
-		for (register int rowIndex = 0; rowIndex < noRows; rowIndex++)
+		for ( int rowIndex = 0; rowIndex < noRows; rowIndex++)
 		{
 			matrix[rowIndex] = (int**)malloc(sizeof(int*)*noCols);
 		}
@@ -21,18 +22,27 @@ void main()
 		{
 			int value = 0;
 			fscanf(pFile, "%d", &value);
-			
 			int i = index / noCols;
-			int j = index % noRows;
+			int j = index % noCols;
 			index++;
+
 
 			matrix[i][j] = (int*)malloc(sizeof(int));
 
 			*matrix[i][j] = value;
-
-
 		}
 
+		
+
+	}
+	fclose(pFile);
+
+	for (int i = 0; i < noRows; i++) {
+		for (int j = 0; j < noCols; j++)
+		{
+			printf("%d, ", *matrix[i][j]);
+		}
+		printf("\n");
 	}
 
 }
