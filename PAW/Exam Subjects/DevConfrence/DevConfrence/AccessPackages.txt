@@ -1,0 +1,3 @@
+﻿1,silver,100
+2,gold,200
+3,platinum,300

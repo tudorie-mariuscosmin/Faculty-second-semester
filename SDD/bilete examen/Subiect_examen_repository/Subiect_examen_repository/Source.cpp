@@ -61,7 +61,7 @@ void copyBst( BstNode* source,BstNode*& destination, int key) {
 		if (source->info->noLines > key)
 			insertBst(destination, source->info);
 		copyBst(source->right, destination, key);
-		copyBst(source->left, destination, key);
+		copyBst(source->left, destination, key);	
 	}
 }
 
@@ -75,6 +75,7 @@ void getLeaves(BstNode* root, Library** array, int& noEL) {
 		getLeaves(root->left, array, noEL);
 	}
 }
+
 
 void freeBst(BstNode*& root) {
 	if (root) {
