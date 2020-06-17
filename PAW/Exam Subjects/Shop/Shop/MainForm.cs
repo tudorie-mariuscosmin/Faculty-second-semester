@@ -191,5 +191,126 @@ namespace Shop
             Chart chart = new Chart(products, categories);
             chart.Show();
         }
+
+        private void pageSetupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pageSetupDialog1.Document = printDocument1;
+            pageSetupDialog1.PageSettings = printDocument1.DefaultPageSettings;
+
+            if (pageSetupDialog1.ShowDialog() == DialogResult.OK)
+            {
+                printDocument1.DefaultPageSettings = pageSetupDialog1.PageSettings;
+            }
+        }
+        int curentParticipantIndex = 0;
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            var printAreaHight = e.MarginBounds.Height;
+            var printAreaWidth = e.MarginBounds.Width;
+
+            var marginLeft = e.PageSettings.Margins.Left;
+            var marginTop = e.PageSettings.Margins.Top;
+
+            int rowHeight = 40;
+
+            var columnWidth = printAreaWidth / 5;
+            var curentY = marginTop;
+
+            var font = new Font(FontFamily.GenericMonospace, 24);
+            StringFormat format = new StringFormat(StringFormatFlags.LineLimit);
+            format.Trimming = StringTrimming.EllipsisCharacter;
+
+            while (curentParticipantIndex < products.Count)
+            {
+                var currentX = marginLeft;
+                e.Graphics.DrawRectangle(Pens.Black, currentX, curentY, columnWidth, rowHeight);
+                e.Graphics.DrawString(products[curentParticipantIndex].Id.ToString(),font , Brushes.Blue, new RectangleF(currentX, curentY, columnWidth, rowHeight ), format);
+                currentX += columnWidth;
+
+                e.Graphics.DrawRectangle(Pens.Black, currentX, curentY, columnWidth, rowHeight);
+                e.Graphics.DrawString(products[curentParticipantIndex].Name, font, Brushes.Blue, new RectangleF(currentX, curentY, columnWidth, rowHeight), format);
+                currentX += columnWidth;
+
+                e.Graphics.DrawRectangle(Pens.Black, currentX, curentY, columnWidth, rowHeight);
+                e.Graphics.DrawString(products[curentParticipantIndex].Price.ToString(), font, Brushes.Blue, new RectangleF(currentX, curentY, columnWidth, rowHeight), format);
+                currentX += columnWidth;
+
+                e.Graphics.DrawRectangle(Pens.Black, currentX, curentY, columnWidth, rowHeight);
+                e.Graphics.DrawString(products[curentParticipantIndex].Units.ToString(), font, Brushes.Blue, new RectangleF(currentX, curentY, columnWidth, rowHeight), format);
+                currentX += columnWidth;
+
+                e.Graphics.DrawRectangle(Pens.Black, currentX, curentY, columnWidth, rowHeight);
+                var category = categories.First(x => x.Id == products[curentParticipantIndex].CategoryId);
+                e.Graphics.DrawString(category.Name, font, Brushes.Blue, new RectangleF(currentX, curentY, columnWidth, rowHeight), format);
+                currentX += columnWidth;
+
+
+                curentParticipantIndex++;
+                curentY += rowHeight;
+                if (curentY + rowHeight > printAreaHight)
+                {
+                    e.HasMorePages = true;
+                    break;
+                }
+               
+
+            }
+
+
+        }
+
+        private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            curentParticipantIndex = 0;
+        }
+
+        private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog1.Show();
+        }
+
+        private void printFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(printDialog1.ShowDialog() == DialogResult.OK)
+            {
+                printDocument1.Print();
+            }
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            if (dgvProducts.SelectedRows.Count == 1)
+            {
+                Product product = (Product)dgvProducts.SelectedRows[0].Tag;
+                Clipboard.SetText(product.ToString());
+            }
+        }
+
+        private void btnPaste_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = Clipboard.GetText();
+        }
+
+        private void textBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+            textBox2.DoDragDrop(textBox2.Text, DragDropEffects.All);
+        }
+
+        private void textBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        private void textBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                textBox1.Text = (string)e.Data.GetData(DataFormats.Text);
+            }
+        }
     }
 }
